@@ -101,8 +101,7 @@ export function downloadProjectReport(project: Project, roadmap: Roadmap, user: 
   doc.setFont("courier", "bold");
   doc.setFontSize(10);
   doc.setTextColor(255, 255, 255);
-  doc.text("DEVFORGE", M + 30, 50);
-  doc.setFont("courier", "normal");
+    doc.text("SLIPWAY", M + 30, 50);  doc.setFont("courier", "normal");
   doc.setFontSize(7.5);
   doc.setTextColor(...([148, 163, 184] as RGB));
   doc.text("AI PROJECT PLANNER — ROADMAP REPORT", M + 30, 60);
@@ -352,10 +351,10 @@ export function downloadProjectReport(project: Project, roadmap: Roadmap, user: 
     doc.setFont("courier", "normal");
     doc.setFontSize(7);
     doc.setTextColor(...SLATE);
-    doc.text("DEVFORGE — AI PROJECT PLANNER", M, H - 28);
+    doc.text("SLIPWAY — AI PROJECT PLANNER", M, H - 28);
     doc.text(`GENERATED ${generated.toUpperCase()}`, W / 2, H - 28, { align: "center" });
     doc.text(`PAGE ${i} / ${pages}`, W - M, H - 28, { align: "right" });
   }
 
-  doc.save(`${slugify(project.projectName)}-devforge-roadmap.pdf`);
+  doc.save(`${slugify(project.projectName)}-slipway-roadmap.pdf`);
 }

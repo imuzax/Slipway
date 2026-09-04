@@ -119,7 +119,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const nu: User = { id: createId("u"), name: name.trim(), email: e, pass: hashPw(pw), role, createdAt: new Date().toISOString() };
       setUsers((u) => [...u, nu]);
       setSession(nu.id);
-      toast("success", `Welcome to DevForge, ${nu.name.split(" ")[0]}!`);
+      toast("success", `Welcome aboard, ${nu.name.split(" ")[0]}!`);
       return null;
     },
     [users, toast]
@@ -265,7 +265,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
             const content = await fetchGroqRoadmap(project, groqKey);
             return { content, engine: "groq" as const };
           } catch {
-            toast("info", "Groq was unreachable — falling back to the offline forge engine.");
+            toast("info", "Groq was unreachable — falling back to the offline chart engine.");
           }
         }
         await sleep(600);
@@ -301,8 +301,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       toast(
         "success",
         engine === "groq"
-          ? `Roadmap v${rm.version} forged with Groq (llama-3.1-70b).`
-          : `Roadmap v${rm.version} forged — ${rm.phases.reduce((n, p) => n + p.tasks.length, 0)} tasks across ${rm.phases.length} phases.`
+          ? `Roadmap v${rm.version} charted with Groq (llama-3.1-70b).`
+          : `Roadmap v${rm.version} charted — ${rm.phases.reduce((n, p) => n + p.tasks.length, 0)} tasks across ${rm.phases.length} phases.`
       );
       return rm;
     },
@@ -312,7 +312,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const saveGroqKey = useCallback(
     (key: string) => {
       setSettings({ groqKey: key.trim() });
-      toast("success", key.trim() ? "Groq key saved — generations now use llama-3.1-70b." : "Groq key removed — using the offline forge engine.");
+      toast("success", key.trim() ? "Groq key saved — generations now use llama-3.1-70b." : "Groq key removed — using the offline chart engine.");
     },
     [toast]
   );

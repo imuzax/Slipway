@@ -175,6 +175,12 @@ const PATHS: Record<string, ReactNode> = {
       <path d="M11 4.5L9 6.6a1.4 1.4 0 0 0 0 2l.4.4-1.6 1.6a1.4 1.4 0 0 0 0 2l.2.2a1.4 1.4 0 0 0 2 0l1.6-1.6.4.4a1.4 1.4 0 0 0 2 0l2.1-2.1-7.1-7z" />
     </>
   ),
+  boat: (
+    <>
+      <path d="M12 3.5l5.5 9h-11l5.5-9z" />
+      <path d="M4.5 15.5h15l-2 3.6a1.4 1.4 0 0 1-1.2.9H7.7a1.4 1.4 0 0 1-1.2-.9l-2-3.6z" />
+    </>
+  ),
   dot: <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />,
   "half-circle": (
     <>
@@ -225,13 +231,14 @@ export function Logo({ size = 34, word = true, onClick }: { size?: number; word?
         className="inline-flex items-center justify-center rounded-[9px] btn-grad shadow-glow"
         style={{ width: size, height: size }}
       >
-        <svg width={size * 0.52} height={size * 0.52} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round">
-          <path d="M5 20v-6M12 20V4M19 20v-3.5" />
+        <svg width={size * 0.58} height={size * 0.58} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 3.5l5.5 9h-11l5.5-9z" />
+          <path d="M4.5 15.5h15l-2 3.6a1.4 1.4 0 0 1-1.2.9H7.7a1.4 1.4 0 0 1-1.2-.9l-2-3.6z" />
         </svg>
       </span>
       {word && (
         <span className="font-display font-bold text-lg tracking-tight text-white leading-none">
-          Dev<span className="text-indigo-400">Forge</span>
+          Slip<span className="text-indigo-400">way</span>
         </span>
       )}
     </span>

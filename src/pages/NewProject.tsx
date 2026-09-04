@@ -66,7 +66,7 @@ export default function NewProject() {
   const validate = (s: number): boolean => {
     const e: Record<string, string> = {};
     if (s === 0) {
-      if (!d.projectName.trim()) e.projectName = "Every forge needs a name.";
+      if (!d.projectName.trim()) e.projectName = "Every vessel needs a name.";
       if (d.tagline.length > 150) e.tagline = "Keep the tagline under 150 characters.";
       if (d.description.trim().length < 30) e.description = "Give the AI at least a couple of sentences to work with (30+ chars).";
     }
@@ -96,7 +96,7 @@ export default function NewProject() {
     setErrors((e) => ({ ...e, features: "" }));
   };
 
-  const forge = () => {
+  const launch = () => {
     const p = createProject({
       projectName: d.projectName.trim(),
       tagline: d.tagline.trim(),
@@ -112,7 +112,7 @@ export default function NewProject() {
       budget: d.budget,
       startDate: d.startDate || new Date().toISOString(),
     });
-    toast("info", `${p.projectName} created — forging your roadmap…`);
+    toast("info", `${p.projectName} created — charting your roadmap…`);
     navigate(`/projects/${p.id}/roadmap`);
     void generateRoadmap(p.id);
   };
@@ -362,8 +362,8 @@ export default function NewProject() {
               Continue
             </Button>
           ) : (
-            <Button size="lg" icon="hammer" onClick={forge}>
-              Forge my roadmap
+            <Button size="lg" icon="boat" onClick={launch}>
+              Chart my roadmap
             </Button>
           )}
         </div>

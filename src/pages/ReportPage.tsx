@@ -17,7 +17,7 @@ export default function ReportPage() {
       <EmptyState
         icon="file"
         title="Nothing to report yet"
-        body="A PDF report needs a forged roadmap first. Head back and generate one."
+        body="A PDF report needs a charted roadmap first. Head back and generate one."
       >
         <Button icon="arrow-left" onClick={() => navigate(id ? `/projects/${id}` : "/dashboard")}>
           Back to project
@@ -65,11 +65,12 @@ export default function ReportPage() {
             <div className="relative px-8 py-8 text-white" style={{ background: "linear-gradient(120deg,#0d1126,#171d3d)" }}>
               <div className="flex items-center gap-2.5">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "linear-gradient(120deg,#6366f1,#8b5cf6)" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round">
-                    <path d="M5 20v-6M12 20V4M19 20v-3.5" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3.5l5.5 9h-11l5.5-9z" />
+                    <path d="M4.5 15.5h15l-2 3.6a1.4 1.4 0 0 1-1.2.9H7.7a1.4 1.4 0 0 1-1.2-.9l-2-3.6z" />
                   </svg>
                 </span>
-                <span className="font-mono text-[10px] font-bold tracking-[0.2em]">DEVFORGE · ROADMAP REPORT</span>
+                <span className="font-mono text-[10px] font-bold tracking-[0.2em]">SLIPWAY · ROADMAP REPORT</span>
               </div>
               <h2 className="mt-5 font-display text-[1.8rem] font-bold leading-tight">{project.projectName}</h2>
               {project.tagline && <p className="mt-1 text-[13px] text-indigo-200/80">{project.tagline}</p>}
@@ -170,7 +171,7 @@ export default function ReportPage() {
               </div>
 
               <div className="flex items-center justify-between border-t border-slate-200 pt-4">
-                <p className="font-mono text-[9px] uppercase tracking-wider text-slate-400">DevForge — AI Project Planner</p>
+                <p className="font-mono text-[9px] uppercase tracking-wider text-slate-400">Slipway — AI Project Planner</p>
                 <p className="font-mono text-[9px] text-slate-400">full report ≈ {Math.max(4, rm.phases.length + 3)} pages</p>
               </div>
             </div>
@@ -212,7 +213,7 @@ export default function ReportPage() {
                   ["Tasks complete", `${doneTasks} / ${totalTasks}`],
                   ["Overall progress", `${project.progress}%`],
                   ["Roadmap version", `v${rm.version}`],
-                  ["Engine", rm.engine === "groq" ? "Groq · llama-3.1-70b" : "Offline forge"],
+                  ["Engine", rm.engine === "groq" ? "Groq · llama-3.1-70b" : "Offline charts"],
                 ].map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-3 border-b border-white/[0.05] pb-2 last:border-0 last:pb-0">
                     <dt className="text-slate-500">{k}</dt>

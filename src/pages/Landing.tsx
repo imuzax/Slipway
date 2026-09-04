@@ -6,7 +6,7 @@ import { Badge, Button, Icon, Logo, ProgressRing, Reveal } from "../components/u
 import type { IconName } from "../components/ui";
 
 const TERM_LINES = [
-  "$ devforge forge --brief nimbus-notes.md",
+  "$ slipway chart --brief nimbus-notes.md",
   "› parsing brief · 6 features · MERN + realtime",
   "› sizing phases against a 2-month window…",
   "› mapping features → vertical sprint slices…",
@@ -22,7 +22,7 @@ const TERM_PHASES = [
   { name: "Deployment & Launch", dur: "6d" },
 ];
 
-function ForgeTerminal() {
+function ChartTerminal() {
   const totalSteps = TERM_LINES.length + TERM_PHASES.length + 2;
   const [step, setStep] = useState(0);
   useEffect(() => {
@@ -37,7 +37,7 @@ function ForgeTerminal() {
         <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
         <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
         <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-        <span className="ml-3 font-mono text-[11px] text-slate-500">devforge — ai planner</span>
+        <span className="ml-3 font-mono text-[11px] text-slate-500">slipway — ai planner</span>
         <Badge tone="indigo" className="ml-auto text-[10px]!">
           <Icon name="spark" size={11} /> live
         </Badge>
@@ -84,7 +84,7 @@ function ForgeTerminal() {
 
 const PROCESS: { n: string; title: string; body: string; icon: IconName }[] = [
   { n: "01", title: "Describe the build", body: "A five-step brief: what it is, the stack, features, team and timeline.", icon: "pen" },
-  { n: "02", title: "Forge the roadmap", body: "DevForge AI returns 6 phases, ~40 tasks, milestones, risks and tooling.", icon: "hammer" },
+  { n: "02", title: "Chart the roadmap", body: "Slipway AI returns 6 phases, ~40 tasks, milestones, risks and tooling.", icon: "boat" },
   { n: "03", title: "Track every phase", body: "Flip task and phase statuses — progress rolls up automatically.", icon: "layers" },
   { n: "04", title: "Ship the report", body: "One click produces a professional PDF you can hand to anyone.", icon: "file" },
 ];
@@ -138,18 +138,18 @@ export default function Landing() {
               AI-powered project planning
             </p>
             <h1 className="mt-5 font-display text-[2.6rem] font-bold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-[4.1rem]">
-              Plan smarter.
+              Every great ship
               <br />
-              Build faster.
+              starts on
               <br />
               <span className="relative inline-block text-transparent" style={{ backgroundImage: "linear-gradient(110deg,#818cf8,#c4b5fd)", WebkitBackgroundClip: "text", backgroundClip: "text" }}>
-                Ship with confidence.
+                the slipway.
               </span>
             </h1>
           </Reveal>
           <Reveal delay={120}>
             <p className="mt-6 max-w-xl text-[15.5px] leading-relaxed text-slate-400">
-              Give DevForge a project brief — stack, features, team, timeline — and get back a complete{" "}
+              Give Slipway a project brief — stack, features, team, timeline — and get back a complete{" "}
               <span className="text-slate-200 font-semibold">six-phase roadmap</span> with tasks, estimates, milestones, risks and pro tips.
               Track it live, then hand over a polished PDF.
             </p>
@@ -157,7 +157,7 @@ export default function Landing() {
           <Reveal delay={220}>
             <div className="mt-8 flex flex-wrap items-center gap-3.5">
               <Button size="lg" icon="spark" onClick={() => navigate("/register")}>
-                Forge your first roadmap
+                Chart your first roadmap
               </Button>
               <Button size="lg" variant="outline" icon="eye" onClick={openDemo}>
                 Explore the live demo
@@ -170,7 +170,7 @@ export default function Landing() {
         </div>
 
         <Reveal delay={180} className="relative">
-          <ForgeTerminal />
+          <ChartTerminal />
           <div className="anim-float absolute -right-3 -top-7 hidden rounded-xl border border-indigo-400/30 bg-ink-850/95 px-4 py-3 shadow-glow backdrop-blur sm:flex sm:items-center sm:gap-3">
             <ProgressRing value={42} size={54} stroke={6} />
             <div>
@@ -221,7 +221,7 @@ export default function Landing() {
       <section id="features" className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
-            <p className="mono-tag text-indigo-400">// the forge</p>
+            <p className="mono-tag text-indigo-400">// the shipyard</p>
             <h2 className="mt-3 max-w-xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Everything between “idea” and “launched”
             </h2>
@@ -238,7 +238,7 @@ export default function Landing() {
                   The engine weaves your actual stack, features and team size into every phase — sprint slices are built from{" "}
                   <em className="text-slate-200 not-italic font-semibold">your</em> feature list, risks respond to{" "}
                   <em className="text-slate-200 not-italic font-semibold">your</em> constraints. Plug in a Groq key and it runs on
-                  llama-3.1-70b; without one, the offline forge still delivers.
+                  llama-3.1-70b; without one, the offline chart engine still delivers.
                 </p>
                 <div className="mt-6 space-y-2">
                   {["Core Development", "Testing & QA", "Deployment & Launch"].map((p, i) => (
@@ -332,7 +332,7 @@ export default function Landing() {
               </p>
               <div className="relative mt-8 flex flex-wrap justify-center gap-3.5">
                 <Button size="lg" icon="spark" onClick={() => navigate("/register")}>
-                  Start forging — it's free
+                  Come aboard — it's free
                 </Button>
                 <Button size="lg" variant="outline" onClick={openDemo}>
                   See the demo roadmap
@@ -346,7 +346,7 @@ export default function Landing() {
       <footer className="border-t border-white/[0.05] py-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-4 sm:flex-row sm:px-6">
           <Logo size={28} />
-          <p className="font-mono text-[11px] text-slate-600">forged with react · tailwind · groq-ready — © 2026 devforge</p>
+          <p className="font-mono text-[11px] text-slate-600">built with react · tailwind · groq-ready — © 2026 slipway</p>
           <div className="flex gap-5 text-sm text-slate-500">
             <button onClick={() => scrollTo("process")} className="transition-colors hover:text-white">Process</button>
             <button onClick={() => scrollTo("features")} className="transition-colors hover:text-white">Features</button>

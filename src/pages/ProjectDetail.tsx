@@ -112,12 +112,12 @@ function RoadmapTab({ p }: { p: Project }) {
   if (!rm)
     return (
       <EmptyState
-        icon="hammer"
+        icon="boat"
         title="No roadmap yet"
-        body="This project is still a blank ingot. Forge a six-phase roadmap — tasks, milestones, risks and all."
+        body="This project is still an empty slipway. Chart a six-phase course — tasks, milestones, risks and all."
       >
         <Button size="lg" icon="spark" disabled={!!generating} onClick={() => void generateRoadmap(p.id)}>
-          Forge roadmap now
+          Chart the course now
         </Button>
       </EmptyState>
     );
@@ -125,7 +125,7 @@ function RoadmapTab({ p }: { p: Project }) {
     <div className="card p-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="mono-tag text-indigo-400">// roadmap v{rm.version} · {rm.engine === "groq" ? "groq · llama-3.1-70b" : "offline forge engine"}</p>
+          <p className="mono-tag text-indigo-400">// roadmap v{rm.version} · {rm.engine === "groq" ? "groq · llama-3.1-70b" : "offline chart engine"}</p>
           <p className="mt-1 text-sm text-slate-400">Total estimate: <span className="font-semibold text-slate-200">{rm.totalEstimatedDuration}</span></p>
         </div>
         <div className="flex gap-2.5">
@@ -363,7 +363,7 @@ export default function ProjectDetail() {
             <ProgressRing value={p.progress} label="complete" />
             <div className="flex flex-col gap-2.5">
               <Button icon="layers" onClick={() => navigate(`/projects/${p.id}/roadmap`)}>
-                {rm ? "Open roadmap" : "Forge roadmap"}
+                {rm ? "Open roadmap" : "Chart roadmap"}
               </Button>
               <Button variant="outline" icon="file" disabled={!rm} onClick={() => navigate(`/projects/${p.id}/report`)}>
                 PDF report

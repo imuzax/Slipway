@@ -3,11 +3,11 @@ import { hashPw, uid } from "./utils";
 import { buildLocalRoadmapContent } from "./engine";
 
 const KEYS = {
-  users: "devforge:users",
-  session: "devforge:session",
-  projects: "devforge:projects",
-  roadmaps: "devforge:roadmaps",
-  settings: "devforge:settings",
+  users: "slipway:users",
+  session: "slipway:session",
+  projects: "slipway:projects",
+  roadmaps: "slipway:roadmaps",
+  settings: "slipway:settings",
 };
 
 function read<T>(key: string, fallback: T): T {
@@ -54,8 +54,8 @@ export function ensureSeed() {
   const demoUser: User = {
     id: "u-demo",
     name: "Ava Chen",
-    email: "demo@devforge.dev",
-    pass: hashPw("forge123"),
+    email: "demo@slipway.dev",
+    pass: hashPw("setsail"),
     role: "developer",
     createdAt: daysAgo(21),
   };

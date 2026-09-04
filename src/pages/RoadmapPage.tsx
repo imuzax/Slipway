@@ -174,7 +174,7 @@ function PhaseCard({ projectId, phase, expanded, onToggle, isNext }: { projectId
               <div className="mt-5">
                 <button onClick={() => setTipsOpen((o) => !o)} className="flex items-center gap-2 rounded-lg px-1 py-1 text-[12.5px] font-bold text-amber-300 transition-colors hover:text-amber-200">
                   <Icon name="zap" size={14} />
-                  {phase.tips.length} pro tip{phase.tips.length > 1 ? "s" : ""} from the forge
+                  {phase.tips.length} pro tip{phase.tips.length > 1 ? "s" : ""} for the voyage
                   <Icon name="chevron-down" size={12} className={cls("transition-transform", tipsOpen && "rotate-180")} />
                 </button>
                 <div className={cls("expander", tipsOpen && "open")}>
@@ -227,19 +227,19 @@ export default function RoadmapPage() {
   if (!rm)
     return (
       <EmptyState
-        icon="hammer"
-        title={generating ? "Forging your roadmap…" : "No roadmap yet"}
+        icon="boat"
+        title={generating ? "Charting your course…" : "No roadmap yet"}
         body={
           generating
-            ? "DevForge AI is analyzing your project. This usually takes under 15 seconds."
-            : "This project is a blank ingot. Forge a six-phase roadmap with tasks, milestones, risks and pro tips."
+            ? "Slipway AI is plotting your course. This usually takes under 15 seconds."
+            : "This project is an empty slipway. Chart a six-phase course with tasks, milestones, risks and pro tips."
         }
       >
         {generating ? (
           <Spinner size={30} className="text-indigo-400" />
         ) : (
           <Button size="lg" icon="spark" onClick={() => void generateRoadmap(project.id)}>
-            Forge roadmap
+            Chart roadmap
           </Button>
         )}
       </EmptyState>
@@ -261,7 +261,7 @@ export default function RoadmapPage() {
               <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Roadmap</h1>
               <Badge tone="indigo">v{rm.version}</Badge>
               <Badge tone={rm.engine === "groq" ? "violet" : "slate"}>
-                <Icon name="spark" size={11} /> {rm.engine === "groq" ? "groq · llama-3.1-70b" : "offline forge"}
+                <Icon name="spark" size={11} /> {rm.engine === "groq" ? "groq · llama-3.1-70b" : "offline charts"}
               </Badge>
             </div>
             <p className="mt-2 text-sm text-slate-400">
@@ -390,7 +390,7 @@ export default function RoadmapPage() {
                 {[
                   ["Generated", fmtDateFull(rm.generatedAt)],
                   ["Version", `v${rm.version}`],
-                  ["Engine", rm.engine === "groq" ? "Groq · llama-3.1-70b" : "Offline forge"],
+                  ["Engine", rm.engine === "groq" ? "Groq · llama-3.1-70b" : "Offline charts"],
                   ["Phases / tasks", `${rm.phases.length} / ${totalTasks}`],
                 ].map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-3 border-b border-white/[0.05] pb-2 last:border-0 last:pb-0">
@@ -412,19 +412,19 @@ export default function RoadmapPage() {
           <>
             <Button variant="ghost" onClick={() => setRegenOpen(false)}>Cancel</Button>
             <Button
-              icon="hammer"
+              icon="boat"
               onClick={() => {
                 setRegenOpen(false);
                 void generateRoadmap(project.id);
               }}
             >
-              Forge v{rm.version + 1}
+              Chart v{rm.version + 1}
             </Button>
           </>
         }
       >
         <p className="leading-relaxed">
-          A fresh v{rm.version + 1} will be forged for <span className="font-bold text-white">{project.projectName}</span>. Current task progress (
+          A fresh v{rm.version + 1} will be charted for <span className="font-bold text-white">{project.projectName}</span>. Current task progress (
           {project.progress}%) will be reset — the old version is replaced.
         </p>
       </Modal>

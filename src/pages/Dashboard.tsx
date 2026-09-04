@@ -119,7 +119,7 @@ export default function Dashboard() {
           </h1>
           <p className="mt-1.5 text-sm text-slate-400">
             {stats.total === 0
-              ? "The forge is cold. Light it with your first project."
+              ? "The slipway is empty. Lay your first keel."
               : `${stats.active} project${stats.active === 1 ? "" : "s"} in motion · ${stats.done} shipped`}
           </p>
         </Reveal>
@@ -172,9 +172,9 @@ export default function Dashboard() {
       {projects.length === 0 ? (
         <div className="mt-8">
           <EmptyState
-            icon="hammer"
-            title="Forge your first project"
-            body="Describe what you're building — stack, features, timeline — and DevForge will hammer out a complete six-phase roadmap in seconds."
+            icon="boat"
+            title="Lay your first keel"
+            body="Describe what you're building — stack, features, timeline — and Slipway will chart a complete six-phase roadmap in seconds."
           >
             <Button size="lg" icon="spark" onClick={() => navigate("/projects/new")}>
               Create your first project

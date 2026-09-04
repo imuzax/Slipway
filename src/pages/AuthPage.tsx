@@ -34,7 +34,7 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
           <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(80% 60% at 20% 0%, rgba(99,102,241,0.18), transparent 65%)" }} />
           <Logo onClick={() => navigate("/")} />
           <div className="relative">
-            <p className="mono-tag text-indigo-400">// the forge awaits</p>
+            <p className="mono-tag text-indigo-400">// the slipway awaits</p>
             <h2 className="mt-3 font-display text-[1.7rem] font-bold leading-snug text-white">
               Five minutes of describing.
               <br />
@@ -64,7 +64,7 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
             <Logo onClick={() => navigate("/")} />
           </div>
           <p className="mono-tag text-indigo-400">{isLogin ? "// welcome back" : "// create your account"}</p>
-          <h1 className="mt-2 font-display text-2xl font-bold text-white">{isLogin ? "Log in to DevForge" : "Start forging"}</h1>
+          <h1 className="mt-2 font-display text-2xl font-bold text-white">{isLogin ? "Log in to Slipway" : "Come aboard"}</h1>
           <p className="mt-1.5 text-sm text-slate-400">
             {isLogin ? "Your projects and roadmaps are right where you left them." : "Free while in beta. No card, no spam."}
           </p>
@@ -128,7 +128,7 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
           )}
 
           <p className="mt-6 text-center text-sm text-slate-500">
-            {isLogin ? "New to DevForge?" : "Already have an account?"}{" "}
+            {isLogin ? "New to Slipway?" : "Already have an account?"}{" "}
             <Link to={isLogin ? "/register" : "/login"} className="font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
               {isLogin ? "Create an account" : "Log in"}
             </Link>

@@ -34,14 +34,14 @@ function GroqKeyModal({ open, onClose }: { open: boolean; onClose: () => void })
       }
     >
       <p className="leading-relaxed text-slate-400">
-        DevForge ships with an <span className="text-slate-200 font-semibold">offline forge engine</span> that always works. Paste a{" "}
+        Slipway ships with an <span className="text-slate-200 font-semibold">offline chart engine</span> that always works. Paste a{" "}
         <span className="font-mono text-indigo-300">Groq API key</span> to generate roadmaps with{" "}
         <span className="font-mono text-indigo-300">llama-3.1-70b-versatile</span> instead — the key stays in this browser only.
       </p>
       <div className="mt-4">
         <Input type="password" placeholder="gsk_…" value={draft} onChange={(e) => setDraft(e.target.value)} />
         <p className="mt-2 text-xs text-slate-500">
-          Get a free key at console.groq.com. If a call fails, DevForge automatically falls back to the offline engine.
+          Get a free key at console.groq.com. If a call fails, Slipway automatically falls back to the offline engine.
         </p>
       </div>
     </Modal>
@@ -108,9 +108,9 @@ function GenerationOverlay() {
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-950/92 p-6 backdrop-blur-md">
       <div className="anim-pop w-full max-w-md text-center">
         <div className="anim-pulse-ring mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded-2xl btn-grad">
-          <Icon name="hammer" size={36} className="text-white" />
+          <Icon name="boat" size={36} className="text-white" />
         </div>
-        <p className="mono-tag text-indigo-400">Forging roadmap</p>
+        <p className="mono-tag text-indigo-400">Charting the course</p>
         <h2 className="mt-2 font-display text-2xl font-bold text-white">{generating.projectName}</h2>
         <p className="mt-5 font-mono text-sm text-slate-300">
           <span className="anim-caret mr-1 inline-block h-3.5 w-[7px] translate-y-0.5 bg-indigo-400" />

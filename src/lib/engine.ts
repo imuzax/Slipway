@@ -12,9 +12,9 @@ import { addDays, uid } from "./utils";
 export const GENERATION_STAGES = [
   "Parsing project brief…",
   "Mapping features to vertical slices…",
-  "Sizing phases against your timeline…",
+  "Plotting phases against your timeline…",
   "Pricing risks & mitigations…",
-  "Writing your roadmap…",
+  "Charting the course…",
 ];
 
 const DURATION_DAYS: Record<string, number> = {
@@ -619,7 +619,7 @@ export function buildLocalRoadmapContent(p: Project): RoadmapContent {
   };
 }
 
-const GROQ_PROMPT = (p: Project) => `You are DevForge AI, an expert software project planning assistant. Generate a comprehensive phased roadmap in valid JSON for this project.
+const GROQ_PROMPT = (p: Project) => `You are Slipway AI, an expert software project planning assistant. Generate a comprehensive phased roadmap in valid JSON for this project.
 
 PROJECT:
 - Name: ${p.projectName}
@@ -701,7 +701,7 @@ export async function fetchGroqRoadmap(p: Project, apiKey: string): Promise<Road
         max_tokens: 4096,
         response_format: { type: "json_object" },
         messages: [
-          { role: "system", content: "You are DevForge AI. You output structured project roadmaps as valid JSON only." },
+          { role: "system", content: "You are Slipway AI. You output structured project roadmaps as valid JSON only." },
           { role: "user", content: GROQ_PROMPT(p) },
         ],
       }),

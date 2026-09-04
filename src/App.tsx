@@ -39,7 +39,7 @@ function NotFound() {
         <p className="mt-8 font-mono text-[80px] font-bold leading-none text-transparent" style={{ backgroundImage: "linear-gradient(120deg,#6366f1,#a78bfa)", WebkitBackgroundClip: "text", backgroundClip: "text" }}>
           404
         </p>
-        <EmptyState icon="terminal" title="This page melted in the forge" body="The URL doesn't match anything DevForge knows about. Let's get you back to solid ground.">
+        <EmptyState icon="boat" title="You've sailed off the chart" body="The URL doesn't match anything Slipway knows about. Let's get you back to safe harbor.">
           <Button icon="arrow-left" onClick={() => navigate("/dashboard")}>
             Back to dashboard
           </Button>
