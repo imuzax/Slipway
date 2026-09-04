@@ -310,7 +310,7 @@ export default function RoadmapPage() {
                   Phase {nextPhase ? nextPhase.phaseNumber : rm.phases.length} of {rm.phases.length}
                 </p>
                 <p className="mt-1 text-[13px] leading-snug text-slate-400">
-                  {nextPhase ? `Currently forging: ${nextPhase.phaseName}` : "All phases complete — ship it! 🎉".replace(" 🎉", "")}
+                  {nextPhase ? `Currently forging: ${nextPhase.phaseName}` : "All phases complete — ship it."}
                 </p>
                 <div className="mt-3 space-y-1.5">
                   {rm.phases.map((ph) => {
