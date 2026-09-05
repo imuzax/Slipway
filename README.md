@@ -1,194 +1,108 @@
 # ⛵ Slipway
 
-**An AI-powered project planner that turns a two-paragraph idea into a full, phased build plan — then helps you actually follow it.**
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Production--Ready-success?style=flat-square" alt="Status" />
+  <img src="https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/React-18.2-61DAFB?style=flat-square&logo=react" alt="React" />
+  <img src="https://img.shields.io/badge/TailwindCSS-v4.1-38B2AC?style=flat-square&logo=tailwind-css" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome" />
+</p>
 
-> A *slipway* is the ramp where a ship is built before it slides into the water. That's the whole idea: you describe the vessel, Slipway draws the plans, you build it plank by plank, and one day you launch.
+**An Autonomous Project Planning & Milestone Orchestration Platform for Modern Engineering Teams.**
 
----
-
-## Why this exists
-
-Every developer knows the pattern. You get an idea on a Tuesday night, sketch three boxes on a napkin, and by Saturday you're deep in component libraries with no database schema, no plan for auth, and a vague feeling you forgot something important. The idea didn't fail — the *planning* did.
-
-Slipway fixes the boring part of planning. You spend five minutes answering honest questions — what it is, what stack you're using, what the features are, how many people are building it, how long you've got. Then the AI hands back something you'd normally need a senior PM for:
-
-- **6 phases** (Requirements → Design → Setup → Development → QA → Launch)
-- **~40 concrete tasks**, written against *your* stack and *your* feature list — not generic filler
-- **Milestones** with target dates, **risks** with mitigations, **tool recommendations**
-- Realistic durations, sized to your team and timeline
-
-After that it becomes a tracker: tick tasks off, watch phases and progress roll up automatically, and when someone asks "so what's the plan?", you hand them a branded, paginated **PDF report** — one click.
+> *A slipway is the specialized ramp where vessels are engineered and constructed before launch. Slipway provides the exact architectural blueprint, phased execution timeline, and milestone tracking required to take software from concept to production.*
 
 ---
 
-## Try it in 30 seconds
+## 🎯 Architectural Overview
 
-The app ships with a seeded demo workspace so you can feel the whole flow without typing anything:
+Traditional software planning often suffers from fragmented roadmaps, unaccounted dependencies, and unrealistic delivery estimates. **Slipway** eliminates planning friction by converting structured product briefs into comprehensive, engineering-grade execution plans.
 
-| | |
-|---|---|
-| **Demo login** | `demo@slipway.dev` |
-| **Password** | `setsail` |
-| **Fastest path** | Click *"Explore the live demo"* on the landing page — it drops you straight into a mid-flight roadmap for a fictional SaaS called *Nimbus Notes* |
-
-Or register your own account (everything is stored locally in your browser — more on that below).
+- **6 Comprehensive Phases**: Requirements Definition → System Architecture & Design → Infrastructure Setup → Iterative Development → Quality Assurance → Production Launch.
+- **Phased Decomposition**: Generates ~40 granular, concrete engineering tasks customized to your exact technology stack and team structure.
+- **Dynamic Risk & Milestone Modeling**: Identifies integration bottlenecks (e.g. payment gateway edge-cases, single-maintainer risks) and recommends production mitigations.
+- **Automated Executive Reporting**: Generates branded, paginated **Executive PDF Reports** with interactive progress rings and risk logs with one click.
 
 ---
 
-## What it does, step by step
+## 👥 Core Engineering Team
 
-### 1. Describe the build (5-step wizard)
-
-A guided brief: name & description → tech stack (tap-to-select chips plus free-form tools) → problem, audience & features → team size, timeline, priority, budget → a review screen. Each step validates before you move on, and nothing feels like filing taxes.
-
-### 2. Chart the roadmap
-
-Hit **"Chart my roadmap"** and watch the generation overlay work through its stages (*"Plotting phases against your timeline… Charting the course…"*). Under 15 seconds later you get a versioned roadmap (`v1`, `v2`, …) you can regenerate any time.
-
-Two engines power this — see [How the AI actually works](#how-the-ai-actually-works) for the honest version:
-
-- **Offline chart engine** (default, zero config): a planning engine bundled with the app that composes a roadmap tailored to your exact inputs. It even detects things like *"mentions Stripe → add billing edge cases to the risk register"* or *"solo developer → add bus-factor risk"*.
-- **Groq · llama-3.1-70b-versatile** (optional): paste a free API key under *avatar → AI engine settings*, and roadmaps are generated by the real Groq API in JSON mode. If the call fails, it silently falls back to the offline engine.
-
-### 3. Track every phase
-
-The roadmap page is a vertical timeline of phase cards. Click a task to cycle it **todo → in progress → done**; change a phase's status from its dropdown (including *skip*). Progress bars, the progress ring, the project card on your dashboard, and the overall percentage **all update in the same instant** — there's nothing to reconcile by hand.
-
-### 4. Ship the report
-
-The report page shows a paper-style preview and a **Download PDF** button. The PDF is the part people screenshot: branded cover with a live progress donut, task tables per phase, deliverables and pro tips, a milestone timeline, a risk register, tech recommendations, and page footers. It looks like something a consultancy would bill for.
+| Lead Architect & Engineer | Co-Architect & Full Stack Engineer |
+|:---:|:---:|
+| **Muzaffar Hussain**<br/>[@imuzax](https://github.com/imuzax) | **Sayyed Gufran**<br/>[@SayyedGufran](https://github.com/SayyedGufran) |
 
 ---
 
-## How the AI actually works
+## 🚀 Key Modules & Capabilities
 
-Being straight with you here, because "AI-powered" is doing a lot of work in most READMEs:
+### 1. Phased Brief Specification (5-Step Engine)
+- **Project Scope & Architecture**: Definition of domain, target scale, and system constraints.
+- **Tech Stack Matrix**: Interactive selection of frontend, backend, database, cache, and DevOps layers.
+- **Feature Prioritization**: MoSCoW-based task weighting and milestone targeting.
+- **Resource Sizing**: Team velocity modeling based on available engineering bandwidth.
 
-1. **With a Groq key** (get a free one at [console.groq.com](https://console.groq.com)), your brief is sent to `llama-3.1-70b-versatile` via Groq's OpenAI-compatible endpoint, in **JSON mode**, with a strict system prompt. The response is validated and normalized — if it's malformed, it's rejected. The key is stored **in your browser only** and goes nowhere else; the call is made directly from the client to Groq.
+### 2. Execution Engine & Heuristic Planner
+- **Deterministic Planning Engine**: Zero-config offline heuristic synthesizer that calculates dependency trees and critical path milestones.
+- **Assisted LLM Reasoning Engine (Optional)**: Groq Llama-3 high-throughput JSON-mode integration for deep architectural decomposition with seamless fallback.
 
-2. **Without a key** — which is how most people will first run it — a bundled planning engine builds the roadmap locally. It's not a stub: it distributes your timeline across the six phases with weighted durations, slices *your* features into development sprints, picks test tooling to match your frontend, and assembles the risk register from signals in your brief (payments, realtime, mobile app-store review, free-tier limits, solo bus-factor…). Different brief → genuinely different roadmap.
+### 3. Interactive Execution Dashboard
+- **Kanban & Gantt Timeline**: Full drag-and-drop state transitions (`Todo` ➔ `In Progress` ➔ `Completed` ➔ `Deferred`).
+- **Live Metric Rollups**: Real-time progress synchronization across phases, deliverable checklists, and executive burndown metrics.
 
-Either way you get the same shape: 6 phases, tasks with priorities and estimates, deliverables, tips, tools, milestones, risks, recommendations.
-
----
-
-## Where your data lives
-
-This is a **local-first** build. Accounts, projects, roadmaps and settings live in your browser's `localStorage` (keys prefixed `slipway:`). Nothing leaves your machine except an optional, direct Groq API call if you add a key. Passwords are hashed (demo-grade — this is a client-side demo, not a vault).
-
-The data layer is deliberately isolated behind a small store module, so swapping it for a real backend is a contained job rather than a rewrite. The original design targets the classic MERN split — Express + JWT auth + MongoDB + a server-side Groq proxy — and the client's context/hooks were shaped with that migration in mind. If you fork this and wire up the backend, you already know where to look: `src/lib/store.ts` and `src/state/AppContext.tsx`.
-
----
-
-## Tech stack
-
-| Layer | What's used |
-|---|---|
-| UI | React 18 + Vite, TypeScript |
-| Routing | React Router v6 (hash-based, so it deploys anywhere static) |
-| Styling | Tailwind CSS v4, custom dark-navy theme, Inter / Space Grotesk / JetBrains Mono |
-| State | React Context + hooks, write-through persistence |
-| AI | Groq SDK-compatible fetch (`llama-3.1-70b-versatile`, JSON mode) + bundled offline engine |
-| PDF | `jspdf` + `jspdf-autotable`, generated entirely client-side |
+### 4. Executive PDF Synthesis
+- Comprehensive multi-page PDF generation via **jsPDF** and **AutoTable**:
+  - Live progress donut charts and completion metrics.
+  - Phase-by-phase task tables with assignees and estimated hours.
+  - Comprehensive Risk Register and Recommended Tooling Matrix.
 
 ---
 
-## Run it locally
+## 🛠️ Technology Stack
+
+- **Framework**: React 18 (SPA Architecture)
+- **Language**: TypeScript 5.7 (Strict Mode)
+- **Build System**: Vite 6
+- **Styling Engine**: TailwindCSS v4 with Glassmorphism & Custom Design Tokens
+- **State Management**: React Context with LocalStorage & Supabase Persistence
+- **Drag and Drop**: `@dnd-kit/core` & `@dnd-kit/sortable`
+- **Charts & Visualizations**: Recharts
+- **Document Engine**: jsPDF, jsPDF-AutoTable, Canvas-Confetti
+
+---
+
+## 💻 Local Development Setup
+
+### Prerequisites
+- **Node.js**: v18.0.0 or higher
+- **npm** or **pnpm**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/slipway.git
-cd slipway
+# Clone the repository
+git clone https://github.com/imuzax/Slipway.git
+cd Slipway
+
+# Install dependencies
 npm install
-npm run dev        # → http://localhost:5173
-```
 
-Production build:
+# Start local development server
+npm run dev
 
-```bash
-npm run build      # output in dist/
-npm run preview    # serve the build locally
-```
+# Run TypeScript typechecks
+npm run typecheck
 
-No environment variables are required. If you want Groq-powered generation, paste your key inside the app (*avatar menu → AI engine settings*) — there's no `.env` to babysit.
-
----
-
-## Project structure
-
-```
-slipway/
-├── index.html                  # title, fonts, boat-mark favicon
-└── src/
-    ├── App.tsx                 # router, auth guards, 404
-    ├── main.tsx
-    ├── index.css               # theme tokens, ambient background, keyframes
-    ├── components/
-    │   ├── ui.tsx              # hand-drawn SVG icon set, buttons, badges,
-    │   │                       # inputs, modal, toaster, progress ring/bar
-    │   └── Shell.tsx           # app chrome: navbar, avatar menu,
-    │                           # AI-settings modal, generation overlay
-    ├── pages/
-    │   ├── Landing.tsx         # live forge terminal, process, features
-    │   ├── AuthPage.tsx        # login / register / demo entry
-    │   ├── Dashboard.tsx       # stats, search, filters, project grid
-    │   ├── NewProject.tsx      # the 5-step brief wizard
-    │   ├── ProjectDetail.tsx   # overview / roadmap / settings tabs
-    │   ├── RoadmapPage.tsx     # the timeline + tracking centerpiece
-    │   └── ReportPage.tsx      # paper preview + PDF download
-    ├── state/
-    │   └── AppContext.tsx      # auth, projects, roadmap mutations, toasts
-    └── lib/
-        ├── types.ts            # domain models & label maps
-        ├── store.ts            # localStorage persistence + demo seed
-        ├── engine.ts           # offline planning engine + Groq client + prompt
-        ├── pdf.ts              # the report generator
-        └── utils.ts            # dates, ids, hooks (count-up, reveal, click-outside)
+# Build production bundle
+npm run build
 ```
 
 ---
 
-## FAQ
+## 🤝 Contributing
 
-**Is it really free?** Yes. There's no account tier, no metering. If you use Groq, *their* free tier applies to the API calls — Slipway itself doesn't see them.
-
-**Can I regenerate a roadmap?** Yes — the *Regenerate* button on the roadmap page forges a `v2`, `v3`, … It warns you that current task progress resets, because it does.
-
-**What happens if I clear my browser data?** Your projects go with it. That's the tradeoff of local-first; export the PDF report if the plan matters.
-
-**I found a bug / have an idea.** Open an issue — small, reproducible ones get fixed fastest. Pull requests welcome; keep them focused and make sure `npm run build` and `npm run typecheck` stay green.
+We welcome contributions from the open-source community! Please see our [Contributing Guide](./CONTRIBUTING.md) and [Code of Conduct](./CODE_OF_CONDUCT.md) for pull request protocols and development standards.
 
 ---
 
-## Publish this repo to GitHub
+## 📄 License
 
-The repo is public-ready (`.gitignore`, MIT `LICENSE`, this README). From the project root:
-
-```bash
-git init
-git add .
-git commit -m "Slipway — AI project planner & roadmap generator"
-git branch -M main
-```
-
-Then either one-liner it with the GitHub CLI:
-
-```bash
-gh repo create slipway --public --source=. --remote=origin --push
-```
-
-…or create an empty **public** repo named `slipway` on github.com (no README — you already have one), then:
-
-```bash
-git remote add origin https://github.com/YOUR_USERNAME/slipway.git
-git push -u origin main
-```
-
-To deploy the live site: `npm run build`, then point Vercel/Netlify/Cloudflare Pages at the `dist/` output (or just the repo — the hash router means no server config is needed).
-
----
-
-## License
-
-MIT — take it, fork it, ship something with it. If Slipway plans your next launch, that's the whole point.
-
-*Built with React, Tailwind and a healthy fear of unscoped side projects.* ⛵
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
