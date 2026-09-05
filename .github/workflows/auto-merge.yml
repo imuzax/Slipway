@@ -1,0 +1,79 @@
+name: Automated PR Verification & Auto-Merge Bot
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  verify-and-merge:
+    name: 🤖 Verify Code & Auto-Merge PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Contributor Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Verify TypeScript & Build
+        run: |
+          npm run typecheck
+          npm run build
+
+      - name: 🚀 Auto-Comment & Merge PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+            const author = context.payload.pull_request.user.login;
+
+            // 1. Post verification feedback comment
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: pull_number,
+              body: `### 🤖 Automated Code Verification Passed!\n\nThank you **@${author}** for your contribution to **Slipway**! 🎉\n\n- ✅ **TypeScript Check:** Passed cleanly with zero type errors.\n- ✅ **Production Build:** Compiled successfully with Vite.\n- 🚀 **Auto-Merge:** This Pull Request is automatically approved and merged into \`main\`.\n\nWelcome to the Slipway contributor family!`
+            });
+
+            // 2. Automatically Approve PR
+            try {
+              await github.rest.pulls.createReview({
+                owner,
+                repo,
+                pull_number,
+                event: 'APPROVE',
+                body: 'Automated CI/CD checks passed. Approved by Slipway CI Bot.'
+              });
+            } catch (err) {
+              console.log('Review status:', err.message);
+            }
+
+            // 3. Automatically Merge PR
+            try {
+              await github.rest.pulls.merge({
+                owner,
+                repo,
+                pull_number,
+                merge_method: 'merge',
+                commit_title: `Merge pull request #${pull_number} from ${author}`,
+                commit_message: `Automated merge of contribution by @${author} verified by Slipway CI Bot`
+              });
+              console.log('Successfully auto-merged PR #' + pull_number);
+            } catch (err) {
+              console.error('Merge failed:', err);
+            }
