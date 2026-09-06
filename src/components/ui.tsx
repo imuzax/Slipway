@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
+import type {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  SelectHTMLAttributes,
+  TextareaHTMLAttributes,
+} from "react";
 import { cls, useCountUp, useReveal } from "../lib/utils";
 import type { ProjectStatus } from "../lib/types";
 import { STATUS_LABELS } from "../lib/types";
@@ -20,6 +26,14 @@ const PATHS: Record<string, ReactNode> = {
   "chevron-right": <path d="M9.5 6l6 6-6 6" />,
   "arrow-right": <path d="M4 12h16m-6-6l6 6-6 6" />,
   "arrow-left": <path d="M20 12H4m6-6l-6 6 6 6" />,
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+    </>
+  ),
+
+  moon: <path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12z" />,
   download: (
     <>
       <path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5" />
@@ -38,7 +52,9 @@ const PATHS: Record<string, ReactNode> = {
       <path d="M6.5 6.5l.8 12a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-12M10 10.5v6m4-6v6" />
     </>
   ),
-  pen: <path d="M4 20l.9-3.8L16.4 4.7a1.8 1.8 0 0 1 2.6 0l.3.3a1.8 1.8 0 0 1 0 2.6L7.8 19.1 4 20zM14.5 6.5l3 3" />,
+  pen: (
+    <path d="M4 20l.9-3.8L16.4 4.7a1.8 1.8 0 0 1 2.6 0l.3.3a1.8 1.8 0 0 1 0 2.6L7.8 19.1 4 20zM14.5 6.5l3 3" />
+  ),
   search: (
     <>
       <circle cx="10.5" cy="10.5" r="6.5" />
@@ -123,7 +139,9 @@ const PATHS: Record<string, ReactNode> = {
       <rect x="13" y="13" width="7" height="7" rx="1.2" />
     </>
   ),
-  flame: <path d="M12 3.5c.6 3-1.5 4.6-2.8 6.2C7.8 11.4 7 13 7 14.8a5 5 0 0 0 10 0c0-2.4-1.2-3.9-2.2-5.3-.4 1-.9 1.6-1.8 2.3.4-3-.3-6-1-8.3z" />,
+  flame: (
+    <path d="M12 3.5c.6 3-1.5 4.6-2.8 6.2C7.8 11.4 7 13 7 14.8a5 5 0 0 0 10 0c0-2.4-1.2-3.9-2.2-5.3-.4 1-.9 1.6-1.8 2.3.4-3-.3-6-1-8.3z" />
+  ),
   shield: (
     <>
       <path d="M12 3.5l7.5 2.8v5.2c0 4.6-3 8-7.5 9.5-4.5-1.5-7.5-4.9-7.5-9.5V6.3L12 3.5z" />
@@ -224,14 +242,34 @@ export function Icon({
 
 /* ================= brand ================= */
 
-export function Logo({ size = 34, word = true, onClick }: { size?: number; word?: boolean; onClick?: () => void }) {
+export function Logo({
+  size = 34,
+  word = true,
+  onClick,
+}: {
+  size?: number;
+  word?: boolean;
+  onClick?: () => void;
+}) {
   return (
-    <span className="inline-flex items-center gap-2.5 select-none cursor-pointer" onClick={onClick}>
+    <span
+      className="inline-flex items-center gap-2.5 select-none cursor-pointer"
+      onClick={onClick}
+    >
       <span
         className="inline-flex items-center justify-center rounded-[9px] btn-grad shadow-glow"
         style={{ width: size, height: size }}
       >
-        <svg width={size * 0.58} height={size * 0.58} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width={size * 0.58}
+          height={size * 0.58}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M12 3.5l5.5 9h-11l5.5-9z" />
           <path d="M4.5 15.5h15l-2 3.6a1.4 1.4 0 0 1-1.2.9H7.7a1.4 1.4 0 0 1-1.2-.9l-2-3.6z" />
         </svg>
@@ -266,19 +304,53 @@ export function Button({
   className,
   children,
   ...rest
-}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: BtnVariant; size?: "sm" | "md" | "lg"; icon?: IconName }) {
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: BtnVariant;
+  size?: "sm" | "md" | "lg";
+  icon?: IconName;
+}) {
   const base =
     "inline-flex items-center justify-center gap-2 font-semibold rounded-[10px] transition-all duration-200 disabled:opacity-45 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/70";
-  const sizes = { sm: "text-[13px] px-3 py-1.5", md: "text-sm px-4 py-2.5", lg: "text-[15px] px-6 py-3" };
+  const sizes = {
+    sm: "text-[13px] px-3 py-1.5",
+    md: "text-sm px-4 py-2.5",
+    lg: "text-[15px] px-6 py-3",
+  };
   const variants: Record<BtnVariant, string> = {
-    primary: "btn-grad text-white shadow-lg shadow-indigo-950/40",
-    outline: "border border-slate-600/60 text-slate-200 hover:border-indigo-400/70 hover:text-white hover:bg-indigo-500/10 active:scale-[0.97]",
-    ghost: "text-slate-300 hover:text-white hover:bg-white/[0.06] active:scale-[0.97]",
-    danger: "bg-rose-500/15 text-rose-300 border border-rose-500/30 hover:bg-rose-500/25 hover:text-rose-200 active:scale-[0.97]",
-    subtle: "bg-white/[0.07] text-slate-100 hover:bg-white/[0.12] active:scale-[0.97]",
+    primary:
+      "btn-grad text-white shadow-lg shadow-indigo-950/20 dark:shadow-indigo-950/40",
+
+    outline:
+      "border border-slate-300 text-slate-700 " +
+      "hover:border-indigo-400 hover:text-indigo-600 hover:bg-indigo-50 " +
+      "dark:border-slate-600/60 dark:text-slate-200 " +
+      "dark:hover:border-indigo-400/70 dark:hover:text-white dark:hover:bg-indigo-500/10 " +
+      "active:scale-[0.97]",
+
+    ghost:
+      "text-slate-700 hover:text-slate-950 hover:bg-slate-200/60 " +
+      "dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.06] " +
+      "active:scale-[0.97]",
+
+    danger:
+      "bg-rose-50 text-rose-600 border border-rose-200 " +
+      "hover:bg-rose-100 hover:text-rose-700 " +
+      "dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 " +
+      "dark:hover:bg-rose-500/25 dark:hover:text-rose-200 " +
+      "active:scale-[0.97]",
+
+    subtle:
+      "bg-slate-100 text-slate-700 border border-slate-200 " +
+      "hover:bg-slate-200 " +
+      "dark:bg-white/[0.07] dark:text-slate-100 dark:border-transparent " +
+      "dark:hover:bg-white/[0.12] " +
+      "active:scale-[0.97]",
   };
   return (
-    <button className={cls(base, sizes[size], variants[variant], className)} {...rest}>
+    <button
+      className={cls(base, sizes[size], variants[variant], className)}
+      {...rest}
+    >
       {icon && <Icon name={icon} size={size === "sm" ? 14 : 16} />}
       {children}
     </button>
@@ -286,12 +358,17 @@ export function Button({
 }
 
 const TONES: Record<string, string> = {
-  indigo: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
-  violet: "bg-violet-500/15 text-violet-300 border-violet-500/30",
-  emerald: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
-  amber: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-  rose: "bg-rose-500/15 text-rose-300 border-rose-500/30",
-  slate: "bg-slate-500/15 text-slate-300 border-slate-500/30",
+  indigo:
+    "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30",
+  violet:
+    "bg-violet-50 text-violet-700 border-violet-200 dark:bg-violet-500/15 dark:text-violet-300 dark:border-violet-500/30",
+  emerald:
+    "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
+  amber:
+    "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
+  rose: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30",
+  slate:
+    "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-200 dark:bg-slate-500/15 dark:text-slate-300 dark:border-slate-500/30",
 };
 
 export function Badge({
@@ -304,13 +381,22 @@ export function Badge({
   children: ReactNode;
 }) {
   return (
-    <span className={cls("inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11.5px] font-semibold", TONES[tone], className)}>
+    <span
+      className={cls(
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11.5px] font-semibold",
+        TONES[tone],
+        className,
+      )}
+    >
       {children}
     </span>
   );
 }
 
-const PROJECT_STATUS_TONE: Record<ProjectStatus, { tone: keyof typeof TONES; dot: string }> = {
+const PROJECT_STATUS_TONE: Record<
+  ProjectStatus,
+  { tone: keyof typeof TONES; dot: string }
+> = {
   planning: { tone: "slate", dot: "bg-slate-400" },
   "in-progress": { tone: "indigo", dot: "bg-indigo-400" },
   "on-hold": { tone: "amber", dot: "bg-amber-400" },
@@ -322,7 +408,13 @@ export function ProjectStatusBadge({ status }: { status: ProjectStatus }) {
   const t = PROJECT_STATUS_TONE[status];
   return (
     <Badge tone={t.tone}>
-      <span className={cls("h-1.5 w-1.5 rounded-full", t.dot, status === "in-progress" && "anim-caret")} />
+      <span
+        className={cls(
+          "h-1.5 w-1.5 rounded-full",
+          t.dot,
+          status === "in-progress" && "anim-caret",
+        )}
+      />
       {STATUS_LABELS[status]}
     </Badge>
   );
@@ -346,8 +438,14 @@ export function Field({
   return (
     <label className="block">
       <span className="mb-1.5 flex items-baseline justify-between">
-        <span className="text-[13px] font-semibold text-slate-300">{label}</span>
-        {counter && <span className="font-mono text-[10.5px] text-slate-500">{counter}</span>}
+        <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-300">
+          {label}
+        </span>
+        {counter && (
+          <span className="font-mono text-[10.5px] text-slate-500">
+            {counter}
+          </span>
+        )}
       </span>
       {children}
       {error ? (
@@ -361,17 +459,49 @@ export function Field({
   );
 }
 
-export function Input({ invalid, className, ...rest }: InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }) {
-  return <input className={cls("input", invalid && "input-error", className)} {...rest} />;
-}
-
-export function Textarea({ invalid, className, ...rest }: TextareaHTMLAttributes<HTMLTextAreaElement> & { invalid?: boolean }) {
-  return <textarea className={cls("input min-h-[110px] resize-y leading-relaxed", invalid && "input-error", className)} {...rest} />;
-}
-
-export function Select({ invalid, className, children, ...rest }: SelectHTMLAttributes<HTMLSelectElement> & { invalid?: boolean }) {
+export function Input({
+  invalid,
+  className,
+  ...rest
+}: InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }) {
   return (
-    <select className={cls("input appearance-none bg-no-repeat pr-9 cursor-pointer", invalid && "input-error", className)}
+    <input
+      className={cls("input", invalid && "input-error", className)}
+      {...rest}
+    />
+  );
+}
+
+export function Textarea({
+  invalid,
+  className,
+  ...rest
+}: TextareaHTMLAttributes<HTMLTextAreaElement> & { invalid?: boolean }) {
+  return (
+    <textarea
+      className={cls(
+        "input min-h-[110px] resize-y leading-relaxed",
+        invalid && "input-error",
+        className,
+      )}
+      {...rest}
+    />
+  );
+}
+
+export function Select({
+  invalid,
+  className,
+  children,
+  ...rest
+}: SelectHTMLAttributes<HTMLSelectElement> & { invalid?: boolean }) {
+  return (
+    <select
+      className={cls(
+        "input appearance-none bg-no-repeat pr-9 cursor-pointer",
+        invalid && "input-error",
+        className,
+      )}
       style={{
         backgroundImage:
           "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9.5l6 6 6-6'/%3E%3C/svg%3E\")",
@@ -395,12 +525,21 @@ export function TagPicker({
   values: string[];
   onChange: (v: string[]) => void;
 }) {
-  const toggle = (t: string) => onChange(values.includes(t) ? values.filter((x) => x !== t) : [...values, t]);
+  const toggle = (t: string) =>
+    onChange(
+      values.includes(t) ? values.filter((x) => x !== t) : [...values, t],
+    );
   return (
     <div>
       <span className="mb-2 flex items-center justify-between">
-        <span className="text-[13px] font-semibold text-slate-300">{label}</span>
-        {values.length > 0 && <span className="mono-tag text-indigo-400">{values.length} selected</span>}
+        <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-300">
+          {label}
+        </span>
+        {values.length > 0 && (
+          <span className="mono-tag text-indigo-400">
+            {values.length} selected
+          </span>
+        )}
       </span>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => {
@@ -413,11 +552,13 @@ export function TagPicker({
               className={cls(
                 "rounded-lg border px-3 py-1.5 text-[13px] font-medium transition-all duration-150 active:scale-95",
                 on
-                  ? "border-indigo-400/70 bg-indigo-500/20 text-indigo-200 shadow-[0_0_18px_-6px_rgba(99,102,241,0.6)]"
-                  : "border-slate-600/50 bg-white/[0.03] text-slate-400 hover:border-slate-400/60 hover:text-slate-200"
+                  ? "border-indigo-300 bg-indigo-50 text-indigo-700 shadow-[0_0_18px_-6px_rgba(99,102,241,0.6)] dark:border-indigo-400/70 dark:bg-indigo-500/20 dark:text-indigo-200"
+                  : "border-slate-300 bg-slate-50 text-slate-700 hover:border-slate-400 hover:text-slate-950 dark:border-slate-600/50 dark:bg-white/[0.03] dark:text-slate-400 dark:hover:border-slate-400/60 dark:hover:text-slate-200",
               )}
             >
-              {on && <Icon name="check" size={12} className="mr-1 inline -mt-0.5" />}
+              {on && (
+                <Icon name="check" size={12} className="mr-1 inline -mt-0.5" />
+              )}
               {opt}
             </button>
           );
@@ -439,15 +580,28 @@ export function TagInput({
   const [draft, setDraft] = useState("");
   const add = () => {
     const v = draft.trim().replace(/,+$/, "");
-    if (v && !values.some((x) => x.toLowerCase() === v.toLowerCase())) onChange([...values, v]);
+    if (v && !values.some((x) => x.toLowerCase() === v.toLowerCase()))
+      onChange([...values, v]);
     setDraft("");
   };
   return (
-    <div className="input flex flex-wrap items-center gap-2 py-2! cursor-text" onClick={(e) => (e.currentTarget.querySelector("input") as HTMLInputElement)?.focus()}>
+    <div
+      className="input flex flex-wrap items-center gap-2 py-2! cursor-text"
+      onClick={(e) =>
+        (e.currentTarget.querySelector("input") as HTMLInputElement)?.focus()
+      }
+    >
       {values.map((v) => (
-        <span key={v} className="anim-pop inline-flex items-center gap-1.5 rounded-md bg-indigo-500/20 border border-indigo-500/30 px-2 py-1 text-xs font-semibold text-indigo-200">
+        <span
+          key={v}
+          className="anim-pop inline-flex items-center gap-1.5 rounded-md bg-indigo-50 border border-indigo-200 px-2 py-1 text-xs font-semibold text-indigo-700 dark:bg-indigo-500/20 dark:border-indigo-500/30 dark:text-indigo-200"
+        >
           {v}
-          <button type="button" onClick={() => onChange(values.filter((x) => x !== v))} className="text-indigo-300/70 hover:text-white transition-colors">
+          <button
+            type="button"
+            onClick={() => onChange(values.filter((x) => x !== v))}
+            className="text-indigo-500/70 hover:text-indigo-700 dark:text-indigo-300/70 dark:hover:text-white transition-colors"
+          >
             <Icon name="x" size={11} />
           </button>
         </span>
@@ -460,11 +614,12 @@ export function TagInput({
             e.preventDefault();
             add();
           }
-          if (e.key === "Backspace" && !draft && values.length) onChange(values.slice(0, -1));
+          if (e.key === "Backspace" && !draft && values.length)
+            onChange(values.slice(0, -1));
         }}
         onBlur={() => draft.trim() && add()}
         placeholder={values.length ? "" : placeholder}
-        className="min-w-[120px] flex-1 bg-transparent text-sm text-slate-200 outline-none placeholder:text-slate-600"
+        className="min-w-[120px] flex-1 bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400 dark:text-slate-200 dark:placeholder:text-slate-600"
       />
     </div>
   );
@@ -480,7 +635,10 @@ export function Segmented<T extends string>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${options.length}, 1fr)` }}>
+    <div
+      className="grid gap-2"
+      style={{ gridTemplateColumns: `repeat(${options.length}, 1fr)` }}
+    >
       {options.map((o) => {
         const on = o.value === value;
         return (
@@ -490,7 +648,9 @@ export function Segmented<T extends string>({
             onClick={() => onChange(o.value)}
             className={cls(
               "rounded-[10px] border px-2 py-2.5 text-[13px] font-semibold transition-all duration-150 active:scale-[0.97]",
-              on ? "border-indigo-400/70 bg-indigo-500/20 text-white shadow-[0_0_20px_-6px_rgba(99,102,241,0.55)]" : "border-slate-600/50 bg-white/[0.03] text-slate-400 hover:text-slate-200 hover:border-slate-400/60"
+              on
+                ? "border-indigo-300 bg-indigo-50 text-indigo-700 shadow-[0_0_20px_-6px_rgba(99,102,241,0.55)] dark:border-indigo-400/70 dark:bg-indigo-500/20 dark:text-white"
+                : "border-slate-600/50 bg-white/[0.03] text-slate-400 hover:text-slate-200 hover:border-slate-400/60",
             )}
           >
             {o.label}
@@ -503,14 +663,34 @@ export function Segmented<T extends string>({
 
 /* ================= progress ================= */
 
-export function ProgressRing({ value, size = 92, stroke = 8, label }: { value: number; size?: number; stroke?: number; label?: string }) {
+export function ProgressRing({
+  value,
+  size = 92,
+  stroke = 8,
+  label,
+}: {
+  value: number;
+  size?: number;
+  stroke?: number;
+  label?: string;
+}) {
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const v = useCountUp(value, 700);
   return (
-    <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
+    <div
+      className="relative inline-flex items-center justify-center"
+      style={{ width: size, height: size }}
+    >
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(148,163,184,0.14)" strokeWidth={stroke} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke="rgba(148,163,184,0.14)"
+          strokeWidth={stroke}
+        />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -521,7 +701,9 @@ export function ProgressRing({ value, size = 92, stroke = 8, label }: { value: n
           strokeLinecap="round"
           strokeDasharray={c}
           strokeDashoffset={c - (c * v) / 100}
-          style={{ transition: "stroke-dashoffset 0.7s cubic-bezier(0.16,1,0.3,1)" }}
+          style={{
+            transition: "stroke-dashoffset 0.7s cubic-bezier(0.16,1,0.3,1)",
+          }}
         />
         <defs>
           <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
@@ -531,20 +713,41 @@ export function ProgressRing({ value, size = 92, stroke = 8, label }: { value: n
         </defs>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-display font-bold text-white" style={{ fontSize: size * 0.22 }}>
+        <span
+          className="font-display font-bold text-slate-950 dark:text-white"
+          style={{ fontSize: size * 0.22 }}
+        >
           {v}%
         </span>
-        {label && <span className="mono-tag text-slate-500 text-[8.5px]!">{label}</span>}
+        {label && (
+          <span className="mono-tag text-slate-500 text-[8.5px]!">{label}</span>
+        )}
       </div>
     </div>
   );
 }
 
-export function Bar({ value, className, striped }: { value: number; className?: string; striped?: boolean }) {
+export function Bar({
+  value,
+  className,
+  striped,
+}: {
+  value: number;
+  className?: string;
+  striped?: boolean;
+}) {
   return (
-    <div className={cls("h-1.5 w-full overflow-hidden rounded-full bg-slate-500/15", className)}>
+    <div
+      className={cls(
+        "h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-500/15",
+        className,
+      )}
+    >
       <div
-        className={cls("h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-400 transition-[width] duration-700 ease-out", striped && "striped-bar")}
+        className={cls(
+          "h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-400 transition-[width] duration-700 ease-out",
+          striped && "striped-bar",
+        )}
         style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
       />
     </div>
@@ -553,10 +756,22 @@ export function Bar({ value, className, striped }: { value: number; className?: 
 
 /* ================= motion & feedback ================= */
 
-export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
+export function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   const { ref, shown } = useReveal();
   return (
-    <div ref={ref} className={cls("reveal", shown && "shown", className)} style={{ transitionDelay: `${delay}ms` }}>
+    <div
+      ref={ref}
+      className={cls("reveal", shown && "shown", className)}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
       {children}
     </div>
   );
@@ -586,15 +801,28 @@ export function Modal({
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-ink-950/80 backdrop-blur-sm" onClick={onClose} />
-      <div className={cls("card anim-pop relative w-full p-6", wide ? "max-w-2xl" : "max-w-md")}>
+      <div
+        className="absolute inset-0 bg-ink-950/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div
+        className={cls(
+          "card anim-pop relative w-full p-6",
+          wide ? "max-w-2xl" : "max-w-md",
+        )}
+      >
         <div className="mb-4 flex items-start justify-between gap-4">
           <h3 className="font-display text-lg font-bold text-white">{title}</h3>
-          <button onClick={onClose} className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-white/[0.06] hover:text-white">
+          <button
+            onClick={onClose}
+            className="rounded-lg p-1.5 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-white"
+          >
             <Icon name="x" size={16} />
           </button>
         </div>
-        <div className="text-sm text-slate-300">{children}</div>
+        <div className="text-sm text-slate-700 dark:text-slate-300">
+          {children}
+        </div>
         {footer && <div className="mt-6 flex justify-end gap-3">{footer}</div>}
       </div>
     </div>
@@ -612,10 +840,21 @@ export function Toaster() {
   return (
     <div className="pointer-events-none fixed bottom-5 right-5 z-[90] flex w-[min(360px,calc(100vw-2.5rem))] flex-col gap-2.5">
       {toasts.map((t) => (
-        <div key={t.id} className={cls("anim-toast pointer-events-auto card flex items-start gap-3 border p-3.5 rounded-xl!", tones[t.kind])}>
+        <div
+          key={t.id}
+          className={cls(
+            "anim-toast pointer-events-auto card flex items-start gap-3 border p-3.5 rounded-xl!",
+            tones[t.kind],
+          )}
+        >
           <Icon name={icons[t.kind]} size={17} className="mt-0.5" />
-          <p className="flex-1 text-[13.5px] font-medium leading-snug text-slate-200">{t.message}</p>
-          <button onClick={() => dismissToast(t.id)} className="text-slate-500 transition-colors hover:text-white">
+          <p className="flex-1 text-[13.5px] font-medium leading-snug text-slate-800 dark:text-slate-200">
+            {t.message}
+          </p>
+          <button
+            onClick={() => dismissToast(t.id)}
+            className="text-slate-500 transition-colors hover:text-slate-900 dark:hover:text-white"
+          >
             <Icon name="x" size={14} />
           </button>
         </div>
@@ -624,24 +863,62 @@ export function Toaster() {
   );
 }
 
-export function EmptyState({ icon, title, body, children }: { icon: IconName; title: string; body: string; children?: ReactNode }) {
+export function EmptyState({
+  icon,
+  title,
+  body,
+  children,
+}: {
+  icon: IconName;
+  title: string;
+  body: string;
+  children?: ReactNode;
+}) {
   return (
     <div className="card anim-fade-up flex flex-col items-center px-6 py-16 text-center">
       <div className="anim-float mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-300">
         <Icon name={icon} size={28} />
       </div>
-      <h3 className="font-display text-xl font-bold text-white">{title}</h3>
-      <p className="mt-2 max-w-sm text-sm leading-relaxed text-slate-400">{body}</p>
+      <h3 className="font-display text-xl font-bold text-slate-950 dark:text-white">
+        {title}
+      </h3>
+      <p className="mt-2 max-w-sm text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+        {body}
+      </p>
       {children && <div className="mt-6">{children}</div>}
     </div>
   );
 }
 
-export function Spinner({ size = 18, className }: { size?: number; className?: string }) {
+export function Spinner({
+  size = 18,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={cls("animate-spin", className)}>
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2.6" />
-      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={cls("animate-spin", className)}
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        strokeOpacity="0.2"
+        strokeWidth="2.6"
+      />
+      <path
+        d="M21 12a9 9 0 0 0-9-9"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
