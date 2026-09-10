@@ -25,6 +25,7 @@ import {
 } from "../lib/engine";
 import { createId, ensureSeed, store } from "../lib/store";
 import { hashPw, sleep, uid } from "../lib/utils";
+import confetti from "canvas-confetti";
 
 ensureSeed();
 
@@ -277,16 +278,52 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   /* ---------------- roadmap progress ---------------- */
 
+  const celebrate = () => {
+    const duration = 2500;
+    const end = Date.now() + duration;
+
+    const interval = window.setInterval(() => {
+      if (Date.now() > end) {
+        window.clearInterval(interval);
+        return;
+      }
+
+      confetti({
+        particleCount: 50,
+        spread: 80,
+        origin: {
+          x: Math.random(),
+          y: 0.6,
+        },
+      });
+    }, 200);
+  };
+
   const applyRoadmapUpdate = useCallback(
     (projectId: string, mutate: (rm: Roadmap) => Roadmap) => {
       let projectProgress: number | null = null;
       const nextRoadmaps = roadmapsRef.current.map((r) => {
         if (r.projectId !== projectId) return r;
         const mutated = mutate(r);
-        const phases = mutated.phases.map((ph) => ({
-          ...ph,
-          status: derivePhaseStatus(ph.status, ph.tasks),
-        }));
+        const phases = mutated.phases.map((ph) => {
+          const previousPhase = r.phases.find((p) => p.id === ph.id);
+
+          const newStatus = derivePhaseStatus(ph.status, ph.tasks);
+
+          // 🎉 Phase just became completed
+          if (
+            previousPhase?.status !== "completed" &&
+            newStatus === "completed"
+          ) {
+            celebrate();
+          }
+
+          return {
+            ...ph,
+            status: newStatus,
+          };
+        });
+
         const rm = { ...mutated, phases };
         projectProgress = computeProgress(rm);
         return rm;

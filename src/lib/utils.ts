@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 export function uid(): string {
-  return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+  return (
+    Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4)
+  );
 }
 
-export function cls(...parts: Array<string | false | null | undefined>): string {
+export function cls(
+  ...parts: Array<string | false | null | undefined>
+): string {
   return parts.filter(Boolean).join(" ");
 }
 
@@ -13,7 +17,12 @@ export function sleep(ms: number): Promise<void> {
 }
 
 export function slugify(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "project";
+  return (
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "") || "project"
+  );
 }
 
 export function fmtDate(iso: string): string {
@@ -25,7 +34,11 @@ export function fmtDate(iso: string): string {
 export function fmtDateFull(iso: string): string {
   const d = new Date(iso);
   if (isNaN(d.getTime())) return "—";
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 export function timeAgo(iso: string): string {
@@ -70,7 +83,9 @@ export function useCountUp(target: number, duration = 900): number {
 }
 
 /** IntersectionObserver-driven scroll reveal. */
-export function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.12) {
+export function useReveal<T extends HTMLElement = HTMLDivElement>(
+  threshold = 0.12,
+) {
   const ref = useRef<T | null>(null);
   const [shown, setShown] = useState(false);
   useEffect(() => {
@@ -87,7 +102,7 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.
           io.disconnect();
         }
       },
-      { threshold, rootMargin: "0px 0px -40px 0px" }
+      { threshold, rootMargin: "0px 0px -40px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -96,7 +111,9 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.
 }
 
 /** Closes dropdowns when clicking outside the returned ref. */
-export function useClickOutside<T extends HTMLElement = HTMLDivElement>(onClose: () => void) {
+export function useClickOutside<T extends HTMLElement = HTMLDivElement>(
+  onClose: () => void,
+) {
   const ref = useRef<T | null>(null);
   useEffect(() => {
     const handler = (e: MouseEvent) => {
