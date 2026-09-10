@@ -9,6 +9,7 @@ import { GENERATION_STAGES } from "../lib/engine";
 import { cls, useClickOutside } from "../lib/utils";
 
 import { Button, Icon, Logo, Modal, Input } from "./ui";
+import ShortcutsModal from "./ShortcutsModal";
 
 function GroqKeyModal({
   open,
@@ -229,6 +230,14 @@ function GenerationOverlay() {
 export default function Shell() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "?") setShortcutsOpen(true);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const { handleTheme, theme } = useApp();
 
@@ -295,6 +304,10 @@ export default function Shell() {
       </main>
 
       <GenerationOverlay />
+      <ShortcutsModal
+        open={shortcutsOpen}
+        onClose={() => setShortcutsOpen(false)}
+      />
     </div>
   );
 }

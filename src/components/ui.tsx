@@ -812,7 +812,9 @@ export function Modal({
         )}
       >
         <div className="mb-4 flex items-start justify-between gap-4">
-          <h3 className="font-display text-lg font-bold text-white">{title}</h3>
+          <h3 className="font-display text-lg font-bold text-black dark:text-white">
+            {title}
+          </h3>
           <button
             onClick={onClose}
             className="rounded-lg p-1.5 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-white"
