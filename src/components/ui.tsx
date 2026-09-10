@@ -829,7 +829,6 @@ export function Modal({
       </div>
     </div>
   );
-  f;
 }
 
 export function Toaster() {
